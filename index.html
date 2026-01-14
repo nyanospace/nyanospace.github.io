@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nyano Space | Golang Systems Architect</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+            scroll-behavior: smooth;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        #matrix-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .glass-card {
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .glass-card:hover {
+            border: 1px solid rgba(0, 242, 254, 0.6);
+            background: rgba(0, 10, 15, 0.85);
+            transform: translateY(-5px);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0, 242, 254, 0.3), transparent);
+        }
+
+        .contact-icon {
+            width: 28px;
+            height: 28px;
+            stroke: #00f2fe;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        /* Mobile Menu Animation */
+        #mobile-menu {
+            transition: transform 0.3s ease-in-out;
+            transform: translateX(100%);
+        }
+        #mobile-menu.active {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="matrix-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-[100] px-6 md:px-12 py-5 flex justify-between items-center bg-black/60 backdrop-blur-xl border-b border-white/5">
+        <div class="text-xl md:text-2xl font-800 tracking-tighter uppercase">Nyano<span class="text-cyan-400">Space</span></div>
+        
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex space-x-10 text-xs font-bold tracking-[0.2em] uppercase">
+            <a href="#home" class="hover:text-cyan-400 transition">Home</a>
+            <a href="#expertise" class="hover:text-cyan-400 transition">Expertise</a>
+            <a href="#projects" class="hover:text-cyan-400 transition">Portfolio</a>
+            <a href="#contact" class="hover:text-cyan-400 transition">Contact</a>
+        </div>
+
+        <!-- Mobile Menu Toggle -->
+        <button id="menu-toggle" class="md:hidden z-[110] text-cyan-400 focus:outline-none">
+            <svg id="menu-icon" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m4 6h16"></path></svg>
+        </button>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-black z-[105] flex flex-col items-center justify-center space-y-8 text-2xl font-bold uppercase tracking-widest md:hidden">
+        <a href="#home" class="mobile-link text-white hover:text-cyan-400">Home</a>
+        <a href="#expertise" class="mobile-link text-white hover:text-cyan-400">Expertise</a>
+        <a href="#projects" class="mobile-link text-white hover:text-cyan-400">Portfolio</a>
+        <a href="#contact" class="mobile-link text-white hover:text-cyan-400">Contact</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+        <div class="text-center z-10 px-6">
+            <div class="inline-block px-4 py-1 border border-cyan-500/30 rounded-full mb-6 bg-cyan-500/10 backdrop-blur-md">
+                <span class="text-cyan-400 text-[9px] md:text-[10px] font-bold tracking-widest uppercase">CEO & Founder • Golang Expert</span>
+            </div>
+            <h1 class="text-5xl sm:text-6xl md:text-8xl font-800 mb-6 tracking-tight leading-none">Nyano <span class="gradient-text">Space</span></h1>
+            <p class="max-w-xl mx-auto text-gray-300 text-base md:text-lg font-light leading-relaxed">
+                Architecting high-concurrency cloud systems and impenetrable security layers using the power of Go.
+            </p>
+            <div class="mt-10">
+                <a href="#expertise" class="inline-block px-8 py-4 bg-cyan-500 text-black font-bold text-xs uppercase tracking-widest rounded-sm hover:bg-cyan-400 transition-all">Explore Systems</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Expertise Section -->
+    <section id="expertise" class="relative py-24 md:py-32 px-6 md:px-12">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-800 mb-16 md:mb-20 text-center uppercase tracking-widest">Our <span class="text-cyan-400">Core</span></h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                <div class="glass-card p-8 md:p-10">
+                    <h3 class="text-cyan-400 text-sm font-bold mb-4 uppercase tracking-widest">01. Engineering</h3>
+                    <h4 class="text-2xl font-bold mb-4">Cloud Native</h4>
+                    <p class="text-gray-300 text-sm leading-loose">Specializing in microservices, gRPC, and high-throughput backends that leverage the full potential of Go routines.</p>
+                </div>
+                <div class="glass-card p-8 md:p-10">
+                    <h3 class="text-cyan-400 text-sm font-bold mb-4 uppercase tracking-widest">02. Intelligence</h3>
+                    <h4 class="text-2xl font-bold mb-4">Security First</h4>
+                    <p class="text-gray-300 text-sm leading-loose">Memory-safe systems and automated vulnerability scanning tools designed to protect sensitive cloud assets.</p>
+                </div>
+                <div class="glass-card p-8 md:p-10">
+                    <h3 class="text-cyan-400 text-sm font-bold mb-4 uppercase tracking-widest">03. Scale</h3>
+                    <h4 class="text-2xl font-bold mb-4">DevOps / Cloud</h4>
+                    <p class="text-gray-300 text-sm leading-loose">Infrastructure as Code (IaC) using Go, managing massive clusters with precision and automated efficiency.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Projects Section -->
+    <section id="projects" class="relative py-24 md:py-32 px-6 md:px-12">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-800 mb-12 md:mb-16 text-center md:text-left">The <span class="text-cyan-400">Lab</span></h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="glass-card p-8 border-l-4 border-l-red-500/50">
+                    <div class="text-red-500 font-bold text-[10px] uppercase mb-4 flex items-center gap-2">
+                        <span class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span> Security Tool
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Titan-Shield IDS</h3>
+                    <p class="text-gray-400 text-sm mb-6">An Intrusion Detection System built in Go monitoring kernel-level events.</p>
+                    <div class="flex flex-wrap gap-2 mt-auto">
+                        <span class="text-[9px] bg-white/5 px-2 py-1 rounded">EBPF</span>
+                        <span class="text-[9px] bg-white/5 px-2 py-1 rounded">Golang</span>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="glass-card p-8 border-l-4 border-l-cyan-500/50">
+                    <div class="text-cyan-400 font-bold text-[10px] uppercase mb-4">Infrastructure</div>
+                    <h3 class="text-xl font-bold mb-3">Orbit Cluster</h3>
+                    <p class="text-gray-400 text-sm mb-6">Lightweight replacement for complex orchestration tools for edge nodes.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-[9px] bg-white/5 px-2 py-1 rounded">Raft Consensus</span>
+                        <span class="text-[9px] bg-white/5 px-2 py-1 rounded">GRPC</span>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="glass-card p-8 border-l-4 border-l-purple-500/50">
+                    <div class="text-purple-400 font-bold text-[10px] uppercase mb-4">Auth Systems</div>
+                    <h3 class="text-xl font-bold mb-3">CipherKey Vault</h3>
+                    <p class="text-gray-400 text-sm mb-6">High-performance secret management using Go's AES-256 implementation.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-[9px] bg-white/5 px-2 py-1 rounded">Cryptography</span>
+                        <span class="text-[9px] bg-white/5 px-2 py-1 rounded">Vault</span>
+                    </div>
+                </div>
+                <!-- Card 4 -->
+                <div class="glass-card p-8 border-l-4 border-l-blue-500/50">
+                    <div class="text-blue-400 font-bold text-[10px] uppercase mb-4">Networking</div>
+                    <h3 class="text-xl font-bold mb-3">Nyano Proxy</h3>
+                    <p class="text-gray-400 text-sm mb-6">Layer 7 reverse proxy focused on ultra-low latency and dynamic TLS.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-[9px] bg-white/5 px-2 py-1 rounded">TCP/UDP</span>
+                        <span class="text-[9px] bg-white/5 px-2 py-1 rounded">TLS 1.3</span>
+                    </div>
+                </div>
+                <!-- Card 5 -->
+                <div class="glass-card p-8 border-l-4 border-l-green-500/50">
+                    <div class="text-green-500 font-bold text-[10px] uppercase mb-4">Static Analysis</div>
+                    <h3 class="text-xl font-bold mb-3">Go-VulnCheck</h3>
+                    <p class="text-gray-400 text-sm mb-6">Enterprise-grade static analysis tool finding race conditions and leaks.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-[9px] bg-white/5 px-2 py-1 rounded">AST</span>
+                        <span class="text-[9px] bg-white/5 px-2 py-1 rounded">Analysis</span>
+                    </div>
+                </div>
+                <!-- Card 6 -->
+                <div class="glass-card p-8 border-l-4 border-l-amber-500/50">
+                    <div class="text-amber-500 font-bold text-[10px] uppercase mb-4">Messaging</div>
+                    <h3 class="text-xl font-bold mb-3">Flux Message Bus</h3>
+                    <p class="text-gray-400 text-sm mb-6">High-throughput pub/sub system handling 1M+ messages/sec.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-[9px] bg-white/5 px-2 py-1 rounded">Concurrency</span>
+                        <span class="text-[9px] bg-white/5 px-2 py-1 rounded">Streams</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <footer id="contact" class="relative py-24 md:py-32 px-6 md:px-12 border-t border-white/5">
+        <div class="max-w-5xl mx-auto text-center relative z-10">
+            <h2 class="text-3xl md:text-4xl font-800 mb-16 uppercase tracking-widest">Connect <span class="text-cyan-400">Nyano</span></h2>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                <a href="https://www.linkedin.com/in/na-madhu-m/" target="_blank" class="glass-card p-6 md:p-8 rounded-2xl flex flex-col items-center group">
+                    <div class="mb-4 p-3 bg-cyan-500/10 rounded-full group-hover:bg-cyan-500/20 transition-all">
+                        <svg class="contact-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                    </div>
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-cyan-400">LinkedIn</span>
+                </a>
+
+                <a href="https://x.com/nyanospace" target="_blank" class="glass-card p-6 md:p-8 rounded-2xl flex flex-col items-center group">
+                    <div class="mb-4 p-3 bg-cyan-500/10 rounded-full group-hover:bg-cyan-500/20 transition-all">
+                        <svg class="contact-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
+                    </div>
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-cyan-400">X / Twitter</span>
+                </a>
+
+                <div class="glass-card p-6 md:p-8 rounded-2xl flex flex-col items-center">
+                    <div class="mb-4 p-3 bg-white/5 rounded-full">
+                        <svg class="contact-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    </div>
+                    <span class="text-[10px] text-gray-500 uppercase mb-1 tracking-widest">Mobile</span>
+                    <span class="text-[11px] md:text-sm font-bold text-white">+91 6360243509</span>
+                </div>
+
+                <div class="glass-card p-6 md:p-8 rounded-2xl flex flex-col items-center">
+                    <div class="mb-4 p-3 bg-white/5 rounded-full">
+                        <svg class="contact-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    </div>
+                    <span class="text-[10px] text-gray-500 uppercase mb-1 tracking-widest">Email</span>
+                    <span class="text-[11px] md:text-sm font-bold text-white">nyanospace@gmail.com</span>
+                </div>
+            </div>
+            
+            <div class="mt-20 md:mt-24 text-[9px] text-gray-600 tracking-[0.3em] md:tracking-[0.5em] uppercase px-4">
+                © 2026 Nyano Space • Engineered for Resilience
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Matrix Effect
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let width, height, columns;
+        const fontSize = 16;
+        const characters = '01ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜｦﾝGOLANGSYSTEMSARCHITECT';
+        let drops = [];
+
+        function initCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            columns = Math.floor(width / fontSize);
+            drops = [];
+            for (let i = 0; i < columns; i++) {
+                drops[i] = Math.random() * -100;
+            }
+        }
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.12)';
+            ctx.fillRect(0, 0, width, height);
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = characters.charAt(Math.floor(Math.random() * characters.length));
+                ctx.fillStyle = '#00ff41'; 
+                if (Math.random() > 0.95) ctx.fillStyle = '#bdfdfd';
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        window.addEventListener('resize', initCanvas);
+        initCanvas();
+        setInterval(drawMatrix, 40);
+
+        // Mobile Menu Logic
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        const menuIcon = document.getElementById('menu-icon');
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('active');
+            const isActive = mobileMenu.classList.contains('active');
+            
+            // Toggle Icon between Burger and X
+            if(isActive) {
+                menuIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>';
+                document.body.style.overflow = 'hidden'; // Prevent scroll
+            } else {
+                menuIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m4 6h16"></path>';
+                document.body.style.overflow = '';
+            }
+        }
+
+        menuToggle.addEventListener('click', toggleMenu);
+        
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                menuIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m4 6h16"></path>';
+                document.body.style.overflow = '';
+            });
+        });
+    </script>
+</body>
+</html>
